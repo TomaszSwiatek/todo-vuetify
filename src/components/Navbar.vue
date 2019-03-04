@@ -1,11 +1,11 @@
 <template>
   <nav>
     <!-- app daje position:fixed, flat-likwiduje cień -->
-    <v-toolbar flat app dark color="teal lighten-2">
+    <v-toolbar app dark color="teal lighten-2 ">
       <v-toolbar-side-icon @click="drawerVisibility = !drawerVisibility"></v-toolbar-side-icon>
       <v-toolbar-title class="text-uppercase">
         <span class="font-weight-light">Todo</span>
-        <span>Ofc</span>
+        <span>witcher</span>
       </v-toolbar-title>
       <!-- vspacer gives space between this two tags - title&iconlogout -->
       <v-spacer></v-spacer>
