@@ -17,7 +17,18 @@
     <!-- zauważ że jest za toolbarem ale jeszcze w navie - bo to bedzie wyjezdzajaca szuflada troche oderwana od kontentu ale jednak element nawigacji -->
     <!-- by sterowac widzialnoscia szuflady musimy to robic za pomocą v-model i potem np przypisac do buttona -->
     <!-- zeby drawer sie wyswietlal to musi byc dodany prop : app. Inaczej wyświetla sie tylko ciemne podswietlenie backgroundu -->
+    <!-- DRAWER FROM THE LEFT - START -->
     <v-navigation-drawer v-model="drawerVisibility" dark app class="teal lighten-1">
+      <!-- AVATAR ON TOP OF DRAWER START -->
+      <v-layout column align-center>
+        <v-flex class="mt-5">
+          <v-avatar size="100">
+            <img src="/avatar-3.png">
+          </v-avatar>
+          <p class="subheading mt-2 white--text text-xs-center">Witcher</p>
+        </v-flex>
+      </v-layout>
+      <!-- AVATAR ON TOP OF DRAWER END -->
       <v-list>
         <!-- 1 item start -->
         <v-list-tile
@@ -35,6 +46,7 @@
         <!-- 1 item end -->
       </v-list>
     </v-navigation-drawer>
+    <!-- DRAWER FROM THE LEFT - END -->
   </nav>
 </template>
 
