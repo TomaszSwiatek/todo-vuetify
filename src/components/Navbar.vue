@@ -27,9 +27,12 @@
           </v-avatar>
           <p class="subheading mt-2 white--text text-xs-center">Witcher</p>
         </v-flex>
+        <v-flex class="mb-0">
+          <Dialog></Dialog>
+        </v-flex>
       </v-layout>
       <!-- AVATAR ON TOP OF DRAWER END -->
-      <v-list>
+      <v-list class="mt-4">
         <!-- 1 item start -->
         <v-list-tile
           v-for="link in links"
@@ -51,7 +54,11 @@
 </template>
 
 <script>
+import Dialog from "./Dialog";
 export default {
+  components: {
+    Dialog
+  },
   data() {
     return {
       drawerVisibility: false,
