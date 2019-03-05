@@ -1,34 +1,38 @@
 <template>
   <div class="dashboard">
-    <h1 class="subheading">Dashboard</h1>
     <v-container class="my-5">
-      <v-layout row wrap class="mb-3">
-        <v-tooltip top>
-          <v-btn
-            flat
-            color="teal"
-            class="text-lowercase caption"
-            @click="sortBy('title')"
-            slot="activator"
-          >
-            <v-icon>style</v-icon>
-            <span>By commission name</span>
-          </v-btn>
-          <span>Sort elements by commission name</span>
-        </v-tooltip>
-        <v-tooltip top>
-          <v-btn
-            flat
-            color="teal"
-            class="text-lowercase caption"
-            @click="sortBy('person')"
-            slot="activator"
-          >
-            <v-icon>how_to_reg</v-icon>
-            <span>By person</span>
-          </v-btn>
-          <span>Sort elements by person name</span>
-        </v-tooltip>
+      <v-layout row wrap class="mb-3" align-end justify-space-between fill-height>
+        <h1 class="headline">
+          <span class="font-weight-light">Dash</span>board
+        </h1>
+        <div class="sort-section">
+          <v-tooltip top>
+            <v-btn
+              flat
+              color="teal"
+              class="text-lowercase caption"
+              @click="sortBy('title')"
+              slot="activator"
+            >
+              <v-icon>style</v-icon>
+              <span>By commission name</span>
+            </v-btn>
+            <span>Sort elements by commission name</span>
+          </v-tooltip>
+          <v-tooltip top>
+            <v-btn
+              flat
+              color="teal"
+              class="text-lowercase caption"
+              @click="sortBy('person')"
+              slot="activator"
+            >
+              <v-icon>how_to_reg</v-icon>
+              <span>By person</span>
+            </v-btn>
+            <span>Sort elements by person name</span>
+          </v-tooltip>
+        </div>
       </v-layout>
 
       <v-card flat v-for="commission in commissions " :key="commission.title">
