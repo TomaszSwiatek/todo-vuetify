@@ -58,6 +58,8 @@
 </template>
 
 <script>
+//we import our database from external file
+import db from "@/fb";
 export default {
   data() {
     return {
@@ -94,12 +96,28 @@ export default {
   methods: {
     addCommission() {
       if (this.$refs.form.validate()) {
-        console.log(
-          this.commissions.title,
-          this.commissions.person,
-          this.commissions.date,
-          this.commissions.status
-        );
+        // console.log(
+        //   this.commissions.title,
+        //   this.commissions.person,
+        //   this.commissions.date,
+        //   this.commissions.status
+        // );
+
+        const commission = {
+          //we assign values of keys to our data in component
+          title: this.commissions.title,
+          person: this.commissions.person,
+          date: this.commissions.date,
+          status: this.commissions.status
+        };
+        //to metoda firebase, pierwszy arg to string z nazwa projektu który robilismy w firebase.
+        //method add just adds new one item to collection, and as param we add this obj which we ve created above.
+        //jako ze jest to asynchorniczna wysyłka, to nie wiemy ile czasu zajmie i dlatego musimy uzyc promises ktore robia cos kiedy juz tamto sie dokona. normalnie reszta pomyslow na napisanie czegos zamiast obietnic bedzie dalej validować kod synchronicznie i nie poczeka. a wiec bedzie błąd. then take a anon. func. as a callback.
+        db.collection("commissions")
+          .add(commission)
+          .then(() => {
+            console.log("added to db");
+          });
       } else {
         console.log("submit error");
       }
