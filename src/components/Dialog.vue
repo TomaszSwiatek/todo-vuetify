@@ -1,5 +1,5 @@
 <template>
-  <v-dialog max-width="600">
+  <v-dialog max-width="600" v-model="dialog">
     <template v-slot:activator="{ on }" max-width="100%">
       <v-btn flat dark v-on="on" class="text-capitalize" outline>Add new commission</v-btn>
     </template>
@@ -50,7 +50,14 @@
         <v-spacer></v-spacer>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="teal lighten-2" class="mr-4 mb-4" outline flat @click="addCommission">Add</v-btn>
+          <v-btn
+            color="teal lighten-2"
+            class="mr-4 mb-4"
+            outline
+            flat
+            @click="addCommission"
+            :loading="loading"
+          >Add</v-btn>
         </v-card-actions>
       </v-form>
     </v-card>
@@ -63,6 +70,10 @@ import db from "@/fb";
 export default {
   data() {
     return {
+      //variable to steer show/hide property on dialog window - binded by vmodel directive
+      dialog: false,
+      //steer loading icon on submit button
+      loading: false,
       //validation of forms - at least 3 char. or error message
       inputRules: [
         //length is equal or more than 3 oraz show message: 'Type at least 3 characters'
@@ -96,6 +107,8 @@ export default {
   methods: {
     addCommission() {
       if (this.$refs.form.validate()) {
+        //starts loading animation on submit button
+        this.loading = true;
         // console.log(
         //   this.commissions.title,
         //   this.commissions.person,
@@ -116,6 +129,10 @@ export default {
         db.collection("commissions")
           .add(commission)
           .then(() => {
+            //ends loading animation on submit button
+            this.loading = false;
+            //send to vmodel of v-dialog tag false value and closes a vdialog window
+            this.dialog = false;
             console.log("added to db");
           });
       } else {
