@@ -2,8 +2,14 @@
   <nav>
     <!-- we re adding snackbar to show a message after we successfully added commission in out Dialog component -->
     <!-- timeout has to be bind becouse we pass the integer, not string. // top prop is to show on top of site / component?  -->
-    <v-snackbar v-model="snackbar" :timeout="6000" top>You successfully added a new commission.
-      <v-btn flat color="primary" @click="snackbar = !snackbar">Close</v-btn>
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="6000"
+      top
+      dark
+      color="teal darken-1"
+    >You successfully added a new commission.
+      <v-btn flat @click="snackbar = !snackbar">Close</v-btn>
     </v-snackbar>
     <!-- app daje position:fixed, flat-likwiduje cień -->
     <v-toolbar app dark color="teal lighten-2 ">
@@ -33,7 +39,7 @@
           <p class="subheading mt-2 white--text text-xs-center">Witcher</p>
         </v-flex>
         <v-flex class="mb-0">
-          <Dialog></Dialog>
+          <Dialog @commissionAdded="snackbar = true"></Dialog>
         </v-flex>
       </v-layout>
       <!-- AVATAR ON TOP OF DRAWER END -->
@@ -72,7 +78,7 @@ export default {
         { icon: "alarm", content: "important", route: "/important" },
         { icon: "face", content: "team", route: "/team" }
       ],
-      snackbar: true
+      snackbar: false
     };
   }
 };
