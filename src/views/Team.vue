@@ -25,9 +25,9 @@
               </v-avatar>
             </v-responsive>
             <v-card-text>
-              <div class="subheading">{{mate.name}}</div>
-              <div class="teal--text">{{mate.role}}</div>
-              <div class="teal--text">{{mate.date}}</div>
+              <div class="subheading">{{mate.person}}</div>
+              <div class="teal--text mt-2">{{mate.occupation}}</div>
+              <div class="teal--text">Added: {{mate.date}}</div>
             </v-card-text>
             <v-card-actions>
               <v-btn flat class="grey--text">
@@ -43,40 +43,30 @@
 </template>
 <script>
 import DialogTeam from "@/components/DialogTeam";
+import db from "@/fb";
 export default {
   components: {
     DialogTeam
   },
   data() {
     return {
-      team: [
-        {
-          name: "Yennefer",
-          role: "Witch",
-          avatar: "/avatar-7.jpg"
-        },
-        {
-          name: "Yarpen",
-          role: "Warrior",
-          avatar: "/avatar-4.jpg"
-        },
-        {
-          name: "Jaskier",
-          role: "Songster",
-          avatar: "/avatar-6.jpg"
-        },
-        {
-          name: "Zoltan",
-          role: "Leader of the dwarven group",
-          avatar: "/avatar-2.jpg"
-        },
-        {
-          name: "Regis",
-          role: "Vampire",
-          avatar: "/avatar-5.jpg"
-        }
-      ]
+      team: []
     };
+  },
+  created() {
+    //created is alwaysa good place to get data from API, this is firebase syntax, check it ninja/31lesson
+    db.collection("team").onSnapshot(res => {
+      const CHANGES = res.docChanges();
+
+      CHANGES.forEach(change => {
+        if (change.type === "added") {
+          this.team.push({
+            ...change.doc.data(),
+            id: change.doc.id
+          });
+        }
+      });
+    });
   }
 };
 </script>
