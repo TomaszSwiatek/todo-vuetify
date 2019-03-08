@@ -27,6 +27,7 @@
             <v-card-text>
               <div class="subheading">{{mate.name}}</div>
               <div class="teal--text">{{mate.role}}</div>
+              <div class="teal--text">{{mate.date}}</div>
             </v-card-text>
             <v-card-actions>
               <v-btn flat class="grey--text">

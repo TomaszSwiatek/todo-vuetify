@@ -26,7 +26,16 @@
             prepend-icon="fitness_center"
             :rules="inputRules"
           ></v-text-field>
-
+          <v-select
+            color="teal"
+            prepend-icon="sort"
+            :rules="inputRules"
+            label="Avatar"
+            item-text="name"
+            item-value="address"
+            :items="avatars"
+            v-model="team.avatars"
+          ></v-select>
           <v-menu>
             <v-text-field
               color="teal"
@@ -77,7 +86,34 @@ export default {
         {
           person: "",
           occupation: "",
-          date: ""
+          date: "",
+          avatar: ""
+        }
+      ],
+      avatars: [
+        {
+          address: "/avatar-1.jpg",
+          name: "Nobody"
+        },
+        {
+          address: "/avatar-2.jpg",
+          name: "Warrior"
+        },
+        {
+          address: "/avatar-4.jpg",
+          name: "Army leader"
+        },
+        {
+          address: "/avatar-5.jpg",
+          name: "Vampire"
+        },
+        {
+          address: "/avatar-6.jpg",
+          name: "Songster"
+        },
+        {
+          address: "/avatar-7.jpg",
+          name: "Witch"
         }
       ]
     };
@@ -93,7 +129,8 @@ export default {
           //we assign values of keys to our data in component
           person: this.team.person,
           occupation: this.team.occupation,
-          date: this.team.date
+          date: this.team.date,
+          avatar: this.team.avatar
         };
         //to metoda firebase, pierwszy arg to string z nazwa projektu który robilismy w firebase.
         //method add just adds new one item to collection, and as param we add this obj which we ve created above.
