@@ -65,35 +65,11 @@
 </template>
 
 <script>
+import db from "@/fb";
 export default {
   data() {
     return {
-      commissions: [
-        {
-          title: "Find her daughter and bring to her.",
-          person: "Yennefer",
-          date: "1st Jan 2020",
-          status: "ongoing"
-        },
-        {
-          title: "Avenge all the dwarves who died in a just cause",
-          person: "Zoltan Chivay",
-          date: "1st Fab 2021",
-          status: "ongoing"
-        },
-        {
-          title: "Help her when she needs it",
-          person: "Milva",
-          date: "1st Dec 2040",
-          status: "planned"
-        },
-        {
-          title: "Kill people who are preparing a coup d'état",
-          person: "King Foltest",
-          date: "2nd Jan 2019",
-          status: "overdue"
-        }
-      ]
+      commissions: []
     };
   },
   methods: {
@@ -101,6 +77,21 @@ export default {
       // zastosowany ternary epression, ale reszte wyjasnia metoda sort z vanilla js
       this.commissions.sort((a, b) => (a[prop] < b[prop] ? -1 : 1));
     }
+  },
+  created() {
+    //created is alwaysa good place to get data from API, this is firebase syntax, check it ninja/31lesson
+    db.collection("commissions").onSnapshot(res => {
+      const CHANGES = res.docChanges();
+
+      CHANGES.forEach(change => {
+        if (change.type === "added") {
+          this.commissions.push({
+            ...change.doc.data(),
+            id: change.doc.id
+          });
+        }
+      });
+    });
   }
 };
 </script>
