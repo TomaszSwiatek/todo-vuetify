@@ -27,41 +27,26 @@
 </template>
 
 <script>
+import db from "@/fb";
 export default {
   data() {
     return {
-      importantMatters: [
-        {
-          title: "To whet swords.",
-          saved: "23 Apr 2018",
-          content:
-            "When Im in a dwarven city, find a good craftsman who will whet both swords and I will not pay for that fortune.",
-          tag: "equipment"
-        },
-        {
-          title: "Remember to visit a Witcher mate in Wyzima",
-          saved: "12 Fab 2019",
-          content:
-            "In Wyzima I will be in about two weeks, be sure to go to Srebrna Street and buy something as a gift.",
-          tag: "mates"
-        },
-        {
-          title: "Feed the horse",
-          saved: "05 Jan 2019",
-          content:
-            "I will buy horse's food when I am in a bigger city, I also need to change horseshoes for new ones.",
-          tag: "equipment"
-        },
-        {
-          title: "Visit the newest bathhouse",
-          saved: "29 Dec 2018",
-          content:
-            "Jaskier said that in many cities beautiful baths have opened, so you can use it well and wash up after weeks of travel.",
-          tag: "entertainment"
-        }
-      ]
+      importantMatters: []
     };
   },
-  created() {}
+  created() {
+    db.collection("importantMatters").onSnapshot(res => {
+      const dataSnapshot = res.docChanges();
+
+      dataSnapshot.forEach(childSnapshot => {
+        if (childSnapshot.type === "added") {
+          this.importantMatters.push({
+            ...childSnapshot.doc.data(),
+            id: childSnapshot.doc.id
+          });
+        }
+      });
+    });
+  }
 };
 </script>
