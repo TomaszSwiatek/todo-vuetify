@@ -34,7 +34,7 @@
             item-text="name"
             item-value="address"
             :items="avatars"
-            v-model="team.avatars"
+            v-model="team.avatar"
           ></v-select>
           <v-menu>
             <v-text-field
