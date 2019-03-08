@@ -35,7 +35,7 @@
         </div>
       </v-layout>
 
-      <v-card flat v-for="commission in commissions " :key="commission.title">
+      <v-card flat v-for="commission in commissions " :key="commission.id">
         <v-layout row wrap :class="`pa-3 commission ${commission.status}`">
           <v-flex xs12 md6>
             <div class="caption grey--text">Commission</div>

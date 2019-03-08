@@ -39,7 +39,7 @@
           <p class="subheading mt-2 white--text text-xs-center">Witcher</p>
         </v-flex>
         <v-flex class="mb-0">
-          <Dialog @commissionAdded="snackbar = true"></Dialog>
+          <DialogDashboard @commissionAdded="snackbar = true"></DialogDashboard>
         </v-flex>
       </v-layout>
       <!-- AVATAR ON TOP OF DRAWER END -->
@@ -65,10 +65,10 @@
 </template>
 
 <script>
-import Dialog from "./Dialog";
+import DialogDashboard from "./DialogDashboard";
 export default {
   components: {
-    Dialog
+    DialogDashboard
   },
   data() {
     return {

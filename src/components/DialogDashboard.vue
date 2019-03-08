@@ -133,12 +133,12 @@ export default {
             this.loading = false;
             //send to vmodel of v-dialog tag false value and closes a vdialog window
             this.dialog = false;
-            console.log("added to db");
+            // console.log("added to db");
             //we want to emit event to navbar component where just in that time! and there tell to show the snackbar:
             this.$emit("commissionAdded");
           });
       } else {
-        console.log("submit error");
+        // console.log("submit error");
       }
     }
   }
