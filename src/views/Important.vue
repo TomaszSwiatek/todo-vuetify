@@ -2,10 +2,26 @@
   <div class="important">
     <v-container class="my-5">
       <v-layout column>
-        <v-flex class="mx-3">
-          <h1 class="headline">
-            <span class="font-weight-light">Important</span>matters
-          </h1>
+        <v-flex class>
+          <v-snackbar
+            v-model="snackbar"
+            :timeout="6000"
+            top
+            dark
+            color="teal darken-1"
+          >You successfully added a new issue.
+            <v-btn flat @click="snackbar = !snackbar">Close</v-btn>
+          </v-snackbar>
+          <v-toolbar flat class="grey--text">
+            <v-toolbar-title class="headline">
+              <span class="font-weight-light">Important</span>matters
+            </v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-toolbar-items class="hidden-sm-and-down">
+              <!-- add button / @onclick shows dialog to add new person -->
+              <DialogImportant @importantAdded="snackbar = true"></DialogImportant>
+            </v-toolbar-items>
+          </v-toolbar>
         </v-flex>
         <v-flex class="mx-0">
           <v-expansion-panel dark popout inset>
@@ -36,11 +52,16 @@
 </template>
 
 <script>
+import DialogImportant from "@/components/DialogImportant";
 import db from "@/fb";
 export default {
+  components: {
+    DialogImportant
+  },
   data() {
     return {
-      importantMatters: []
+      importantMatters: [],
+      snackbar: false
     };
   },
   created() {

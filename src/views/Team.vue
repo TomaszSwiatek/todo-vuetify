@@ -3,17 +3,24 @@
     <v-container class="my-5">
       <v-layout row wrap>
         <v-flex xs12>
+          <v-snackbar
+            v-model="snackbar"
+            :timeout="6000"
+            top
+            dark
+            color="teal darken-1"
+          >You successfully added a new person.
+            <v-btn flat @click="snackbar = !snackbar">Close</v-btn>
+          </v-snackbar>
+
           <v-toolbar flat class="grey--text">
             <v-toolbar-title class="headline">
               <span class="font-weight-light">Te</span>am
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items class="hidden-sm-and-down">
-              <DialogTeam @commissionAdded="snackbar = true"></DialogTeam>
-
-              <!---->
-              <!-- <v-btn flat>Link Two</v-btn>
-              <v-btn flat>Link Three</v-btn>-->
+              <!-- add button / @onclick shows dialog to add new person -->
+              <DialogTeam @personAdded="snackbar = true"></DialogTeam>
             </v-toolbar-items>
           </v-toolbar>
         </v-flex>
@@ -50,7 +57,8 @@ export default {
   },
   data() {
     return {
-      team: []
+      team: [],
+      snackbar: false
     };
   },
   created() {

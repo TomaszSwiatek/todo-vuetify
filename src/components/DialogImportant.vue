@@ -7,45 +7,44 @@
       </v-btn>
     </template>
     <v-card flat>
-      <v-card-title class="headline teal white--text lighten-1">Add new person:</v-card-title>
+      <v-card-title class="headline teal white--text lighten-1">Add new issue:</v-card-title>
       <v-divider></v-divider>
       <v-form ref="form">
         <v-card-text class="pa-4">
           <v-text-field
             color="teal"
-            label="Name"
-            v-model="team.person"
+            label="Title"
+            v-model="importantMatters.title"
             prepend-icon="people"
             :rules="inputRules"
           ></v-text-field>
 
+          <v-textarea
+            label="Content"
+            color="teal"
+            v-model="importantMatters.content"
+            prepend-icon="title"
+            :rules="inputRules"
+          ></v-textarea>
+
           <v-text-field
             color="teal"
-            label="Occupation"
-            v-model="team.occupation"
-            prepend-icon="fitness_center"
+            label="Tag"
+            v-model="importantMatters.tag"
+            prepend-icon="filter_vintage"
             :rules="inputRules"
           ></v-text-field>
-          <v-select
-            color="teal"
-            prepend-icon="sort"
-            :rules="inputRules"
-            label="Avatar"
-            item-text="name"
-            item-value="address"
-            :items="avatars"
-            v-model="team.avatar"
-          ></v-select>
+
           <v-menu>
             <v-text-field
               color="teal"
               slot="activator"
               label="Date"
-              v-model="team.date"
+              v-model="importantMatters.saved"
               prepend-icon="date_range"
               :rules="inputRules"
             ></v-text-field>
-            <v-date-picker color="teal lighten-2" v-model="team.date"></v-date-picker>
+            <v-date-picker color="teal lighten-2" v-model="importantMatters.saved"></v-date-picker>
           </v-menu>
         </v-card-text>
 
@@ -57,7 +56,7 @@
             class="mr-4 mb-4"
             outline
             flat
-            @click="addPerson"
+            @click="addImportant"
             :loading="loading"
           >Add</v-btn>
         </v-card-actions>
@@ -81,62 +80,34 @@ export default {
         //length is equal or more than 3 oraz show message: 'Type at least 3 characters'
         v => v.length >= 3 || "Type at least 3 characters"
       ],
-      //   availableStatus: ["planned", "ongoing", "overdue"],
-      team: [
+      importantMatters: [
         {
-          person: "",
-          occupation: "",
-          date: "",
-          avatar: ""
-        }
-      ],
-      avatars: [
-        {
-          address: "/avatar-1.jpg",
-          name: "Nobody"
-        },
-        {
-          address: "/avatar-2.jpg",
-          name: "Warrior"
-        },
-        {
-          address: "/avatar-4.jpg",
-          name: "Army leader"
-        },
-        {
-          address: "/avatar-5.jpg",
-          name: "Vampire"
-        },
-        {
-          address: "/avatar-6.jpg",
-          name: "Songster"
-        },
-        {
-          address: "/avatar-7.jpg",
-          name: "Witch"
+          content: "",
+          title: "",
+          saved: "",
+          tag: ""
         }
       ]
     };
   },
   methods: {
-    addPerson() {
+    addImportant() {
       if (this.$refs.form.validate()) {
         //starts loading animation on submit button
         this.loading = true;
-        // tu mozna dac consolelog z this.team.person i.e.
 
-        const person = {
+        const important = {
           //we assign values of keys to our data in component
-          person: this.team.person,
-          occupation: this.team.occupation,
-          date: this.team.date,
-          avatar: this.team.avatar
+          content: this.importantMatters.content,
+          title: this.importantMatters.title,
+          saved: this.importantMatters.saved,
+          tag: this.importantMatters.tag
         };
         //to metoda firebase, pierwszy arg to string z nazwa projektu który robilismy w firebase.
         //method add just adds new one item to collection, and as param we add this obj which we ve created above.
         //jako ze jest to asynchorniczna wysyłka, to nie wiemy ile czasu zajmie i dlatego musimy uzyc promises ktore robia cos kiedy juz tamto sie dokona. normalnie reszta pomyslow na napisanie czegos zamiast obietnic bedzie dalej validować kod synchronicznie i nie poczeka. a wiec bedzie błąd. then take a anon. func. as a callback.
-        db.collection("team")
-          .add(person)
+        db.collection("importantMatters")
+          .add(important)
           .then(() => {
             //ends loading animation on submit button
             this.loading = false;
@@ -144,7 +115,7 @@ export default {
             this.dialog = false;
             // console.log("added to db");
             //we want to emit event to navbar component where just in that time! and there tell to show the snackbar:
-            this.$emit("personAdded");
+            this.$emit("importantAdded");
           });
       } else {
         // console.log("submit error");
