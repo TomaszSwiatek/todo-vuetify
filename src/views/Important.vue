@@ -17,7 +17,7 @@
               <span class="font-weight-light">Important</span>matters
             </v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-toolbar-items class="hidden-sm-and-down">
+            <v-toolbar-items>
               <!-- add button / @onclick shows dialog to add new person -->
               <DialogImportant @importantAdded="snackbar = true"></DialogImportant>
             </v-toolbar-items>
