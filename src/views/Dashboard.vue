@@ -36,20 +36,20 @@
       </v-layout>
 
       <v-card flat v-for="commission in commissions " :key="commission.id">
-        <v-layout row wrap :class="`pa-3 commission ${commission.status}`">
-          <v-flex xs12 md6>
+        <v-layout row wrap justify-space-around :class="`pa-3 commission ${commission.status}`">
+          <v-flex xs12 sm12 md12 lg3>
             <div class="caption grey--text">Commission</div>
             <div>{{commission.title}}</div>
           </v-flex>
-          <v-flex xs6 sm4 md2>
+          <v-flex xs12 sm4 md4 lg3>
             <div class="caption grey--text">From</div>
             <div>{{commission.person}}</div>
           </v-flex>
-          <v-flex xs6 sm4 md2>
+          <v-flex xs12 sm4 md4 lg3>
             <div class="caption grey--text">Due by</div>
             <div>{{commission.date}}</div>
           </v-flex>
-          <v-flex xs2 sm4 md2>
+          <v-flex xs12 sm4 md4 lg3 shrink>
             <!-- spycha content diva do prawej -->
             <div class="right">
               <v-chip
